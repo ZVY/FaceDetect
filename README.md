@@ -1,6 +1,6 @@
 # FaceDetect
 The program recursively traverses the specified directory on the disk looking for files with photos, detects on their faces, 
-eyes and mouth. Person found transformerait and saves to disk in format .jpg, also save the file with the coordinates of found
+eyes and mouth. Faces found transformerait and saves to disk in format .jpg, also save the file with the coordinates of found
 faces in the format .json. The program implemented a pool of threads each thread which handles your photo.
 
 
