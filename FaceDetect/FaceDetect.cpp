@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <thread>
+#include <mutex>
 
 #include <cv.h>
 #include <highgui.h>
@@ -32,7 +34,7 @@ struct ResultDetect
 };
 
 std::ofstream file_id("result.json");
-boost::mutex mut;
+std::mutex mut;
 
 namespace bamthread
 {
@@ -144,8 +146,8 @@ void startProc(string ful_path_dir, bamthread::ThreadPool &tp, ResultDetect &det
 }
 
 void detectFace(string full_path, string name_file, ResultDetect &detectInfo)
-{
-	mut.lock();
+{	
+	std::lock_guard<std::mutex> lk(mut);
 
 	Mat img = imread(full_path);
 	if (img.empty())
@@ -227,6 +229,4 @@ void detectFace(string full_path, string name_file, ResultDetect &detectInfo)
 
 		file_id << j;
 	}
-		
-	mut.unlock();
 }
